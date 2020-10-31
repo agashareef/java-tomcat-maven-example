@@ -1,14 +1,16 @@
 node{
-      def mvnHome = tool name: 'maven 3.6.3', type: 'maven' 
+       
       stage('Checkout'){
          git 'https://github.com/agashareef/java-tomcat-maven-example'
        
       }  
       stage('Build'){
          //// Get maven home path and build
+        def mvnHome = tool name: 'maven 3.6.3', type: 'maven'
         sh "${mvnHome}/bin/mvn clean package -Dmaven.test.skip=true"
       }
      stage ('Test-JUnit'){
+         def mvnHome = tool name: 'maven 3.6.3', type: 'maven'  
          sh "'${mvnHome}/bin/mvn' test surefire-report:report"
       }  
     
